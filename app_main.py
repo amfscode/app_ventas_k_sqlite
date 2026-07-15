@@ -29,16 +29,47 @@ CREATE TABLE IF NOT EXISTS reservas (
     conexion.commit()
     conexion.close()
 
-crear_tablas()
+# crear_tablas()
 
 # bloque para agregar tablas(filas a tablas existentes)
+
 def agregar_prenda(nombre,precio,stock):
     conexion = conectar()
     cursor = conexion.cursor()
 
     cursor.execute("""
                    INSERT INTO prendas(nombre, precio, stock)
-                   VALUES(?,?,?)
+                   VALUES(?, ?, ?)
                    """,(nombre, precio,stock))
-    conexion.commit()
+    # conexion.commit()
     conexion.close()
+
+# agregando un valores a prendas
+
+crear_tablas()
+agregar_prenda("fio",100,2)
+
+
+def ver_prendas():
+    conexion = conectar()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT id, nombre, precio, stock
+        FROM prendas
+    """)
+
+    prendas = cursor.fetchall()
+
+    conexion.close()
+
+    return prendas
+
+# probando
+crear_tablas()
+
+agregar_prenda("Polo negro", 50, 10)
+
+prendas = ver_prendas()
+
+print(prendas)
