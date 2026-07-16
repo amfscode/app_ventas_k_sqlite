@@ -1,5 +1,4 @@
 
-
 import sqlite3
 
 def conectar():
@@ -48,7 +47,6 @@ def agregar_prenda(nombre,precio,stock):
 
 crear_tablas()
 agregar_prenda("fio",100,2)
-
 
 def ver_prendas():
     conexion = conectar()
