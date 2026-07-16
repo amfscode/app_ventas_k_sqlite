@@ -71,3 +71,8 @@ agregar_prenda("Polo negro", 50, 10)
 prendas = ver_prendas()
 
 print(prendas)
+
+#mejorando ver_prendas con un bucle
+for prenda in prendas:
+    print(prenda)
+    
