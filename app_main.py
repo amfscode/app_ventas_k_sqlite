@@ -99,6 +99,11 @@ prenda = buscar_prenda(1)
 
 print(prenda)
 
+print(prenda["id"])
+print(prenda["nombre"])
+print(prenda["precio"])
+print(prenda["stock"])
+
 #mejorando ver_prendas con un bucle
 # for prenda in prendas:
 
