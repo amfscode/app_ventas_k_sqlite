@@ -1,8 +1,13 @@
 
 import sqlite3
 
-def conectar():
-    return sqlite3.connect("ventas.db")
+# def conectar(): #funcion version v.1
+#     return sqlite3.connect("ventas.db")
+
+def conectar(): #funcion version v.2
+    conexion = sqlite3.connect("ventas.db")
+    conexion.row_factory = sqlite3.Row
+    return conexion
 
 def crear_tablas():
     conexion = conectar()
@@ -45,8 +50,8 @@ def agregar_prenda(nombre,precio,stock):
 
 # agregando un valores a prendas
 
-crear_tablas()
-agregar_prenda("fio",100,2)
+# crear_tablas()
+# agregar_prenda("fio",100,2)
 
 def ver_prendas():
     conexion = conectar()
@@ -57,22 +62,50 @@ def ver_prendas():
         FROM prendas
     """)
 
-    prendas = cursor.fetchall()
+    prendas = cursor.fetchall()# busca todos los id
 
     conexion.close()
 
     return prendas
 
-# probando
-crear_tablas()
+def buscar_prenda(id_prenda): # "Dame un ID y yo buscaré esa prenda."
+    conexion = conectar()
+    cursor = conexion.cursor()
 
-agregar_prenda("Polo negro", 50, 10)
+    cursor.execute("""
+                   SELECT *
+                   FROM prendas
+                   WHERE id = ?
+                   """,(id_prenda,))
+    prenda = cursor.fetchone() # busca un id
+    conexion.close()
+    return prenda
+# ____________________________________
+
+# probando
+# crear_tablas()
+# agregar_prenda("Polo negro", 50, 10)
 
 prendas = ver_prendas()
+for prenda in prendas:
+    print(
+        f"Precio: S/. {prenda['precio']} | "
+        f"Stock: {prenda['stock']}"
+    )
 
-print(prendas)
+crear_tablas()
+
+prenda = buscar_prenda(1)
+
+print(prenda)
 
 #mejorando ver_prendas con un bucle
-for prenda in prendas:
-    print(prenda)
-    
+# for prenda in prendas:
+
+# accediendo a cada dato
+# for prenda in prendas:
+#     print("ID: ",prenda[0])
+#     print("Nombre: ",prenda[1])
+#     print("Precio: ",prenda[2])
+#     print("Stock: ",prenda[3])
+#     print("___")
