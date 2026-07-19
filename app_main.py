@@ -97,7 +97,7 @@ crear_tablas()
 
 prenda = buscar_prenda(1)
 
-print(prenda)
+
 
 print(prenda["id"])
 print(prenda["nombre"])
