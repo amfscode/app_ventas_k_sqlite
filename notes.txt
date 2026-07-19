@@ -1,0 +1,10 @@
+note1
+    Existe una regla muy importante en Python:
+
+    Cuando compares con None, utiliza siempre:
+
+    is None
+
+    y no: == None
+
+note2

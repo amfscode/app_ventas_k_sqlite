@@ -1,16 +1,16 @@
 
 import sqlite3
 
-# def conectar(): #funcion version v.1
+# def conectar_f_main1(): # funcion version v.1
 #     return sqlite3.connect("ventas.db")
 
-def conectar(): #funcion version v.2
+def conectar_f_main1(): #funcion version v.2
     conexion = sqlite3.connect("ventas.db")
     conexion.row_factory = sqlite3.Row
     return conexion
 
-def crear_tablas():
-    conexion = conectar()
+def crear_tablas_f1():
+    conexion = conectar_f_main1()
     cursor = conexion.cursor()
 
     cursor.execute("""
@@ -33,28 +33,23 @@ CREATE TABLE IF NOT EXISTS reservas (
     conexion.commit()
     conexion.close()
 
-# crear_tablas()
 
-# bloque para agregar tablas(filas a tablas existentes)
+# ______________________________________________________
 
-def agregar_prenda(nombre,precio,stock):
-    conexion = conectar()
+def agregar_prenda_f1(nombre,precio,stock):
+    conexion = conectar_f_main1()
     cursor = conexion.cursor()
 
     cursor.execute("""
                    INSERT INTO prendas(nombre, precio, stock)
                    VALUES(?, ?, ?)
                    """,(nombre, precio,stock))
-    # conexion.commit()
+    conexion.commit()
     conexion.close()
+# ______________________________________________________
 
-# agregando un valores a prendas
-
-# crear_tablas()
-# agregar_prenda("fio",100,2)
-
-def ver_prendas():
-    conexion = conectar()
+def ver_prendas_f1():
+    conexion = conectar_f_main1()
     cursor = conexion.cursor()
 
     cursor.execute("""
@@ -68,8 +63,9 @@ def ver_prendas():
 
     return prendas
 
-def buscar_prenda(id_prenda): # "Dame un ID y yo buscaré esa prenda."
-    conexion = conectar()
+# ______________________________________________________
+def buscar_prenda_f1(id_prenda): # "Dame un ID y yo buscaré esa prenda."
+    conexion = conectar_f_main1()
     cursor = conexion.cursor()
 
     cursor.execute("""
@@ -80,37 +76,90 @@ def buscar_prenda(id_prenda): # "Dame un ID y yo buscaré esa prenda."
     prenda = cursor.fetchone() # busca un id
     conexion.close()
     return prenda
-# ____________________________________
+# ______________________________________________________
+# funciones llamando otras Funciones relacionado con opciones ll
 
-# probando
-# crear_tablas()
-# agregar_prenda("Polo negro", 50, 10)
+# ______________________________________________________
 
-prendas = ver_prendas()
-for prenda in prendas:
+def registrar_prenda_f2(): # opcion 1
+    nombre = input("Nombre de la prenda: ")
+    precio = float(input("Precio: "))
+    stock = int(input("Stock: "))
+    agregar_prenda_f1(nombre,precio,stock)
+    print("\nPrenda registrad ")
+# ______________________________________________________
+
+def mostrar_catalogo_f2(): # opcion 2
+
+    prendas = ver_prendas_f1()
+
+    if not prendas:
+        print("No hay prensas registradas")
+        return
+
+    print("\n======Catalogo======")
+    for prenda in prendas:
+        print(
+            f"""
+ID: {prenda["id"]}
+Nombre: {prenda["nombre"]}
+Precio: S/. {prenda["precio"]}
+Stock: {prenda["stock"]}
+---------------
+"""
+        )
+
+# ______________________________________________________
+
+def buscar_prenda_f2():
+    id_prenda = int(input("Ingrese el ID de la prenda: "))
+    prenda = buscar_prenda_f1(id_prenda)
+    if prenda is None:
+        print("\nNo existe una  prenda con este ID.")
+        return
     print(
-        f"Precio: S/. {prenda['precio']} | "
-        f"Stock: {prenda['stock']}"
-    )
+        f"""
+ID: {prenda["id"]}
+Nombre: {prenda["nombre"]}
+Precio: S/. {prenda["precio"]}
+Stock: {prenda["stock"]}
+---------------
+""")
 
-crear_tablas()
+# ______________________________________________________
 
-prenda = buscar_prenda(1)
+def menu():
+    while True:
+        print("\n==========APP Fio=========")
+        print("1. Agregar prenda")
+        print("2. ver catalogo")
+        print("3. buscar prenda")
+        print("4. vender prenda")
+        print("5. reponer prenda")
+        print("6. eliminar prenda")
+        print("7. ver reservas")
+        print("8. Salir")
+        print("=======================")
+
+        opcion =  input("Ingrese unaa opcion: ")
+
+        if opcion == "1":
+            registrar_prenda_f2()
+        elif opcion == "2":
+            mostrar_catalogo_f2()
+        elif opcion == "3":
+            buscar_prenda_f2()
+        # elif opcion == "2":
+        # elif opcion == "2":
 
 
+        elif opcion == "8":
+            print("APP Closed ")
+            break
+        else:
+            print("Opcion no valida.")
 
-print(prenda["id"])
-print(prenda["nombre"])
-print(prenda["precio"])
-print(prenda["stock"])
+if __name__ == "__main__":
+    crear_tablas_f1()
+    menu()
 
-#mejorando ver_prendas con un bucle
-# for prenda in prendas:
-
-# accediendo a cada dato
-# for prenda in prendas:
-#     print("ID: ",prenda[0])
-#     print("Nombre: ",prenda[1])
-#     print("Precio: ",prenda[2])
-#     print("Stock: ",prenda[3])
-#     print("___")
