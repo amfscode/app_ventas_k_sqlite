@@ -77,8 +77,35 @@ def buscar_prenda_f1(id_prenda): # "Dame un ID y yo buscaré esa prenda."
     conexion.close()
     return prenda
 # ______________________________________________________
-# funciones llamando otras Funciones relacionado con opciones ll
 
+def actualizar_stock_f1(id_prenda,nuevo_stock):
+    conexion = conectar_f_main1()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+                   UPDATE prendas
+                   SET stock = ?
+                   WHERE id = ?
+                   """,(nuevo_stock,id_prenda))
+    conexion.commit()
+    conexion.close()
+
+# ______________________________________________________
+
+def eliminar_prenda_f1(id_prenda):
+    conexion = conectar_f_main1()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+                   DELETE FROM prendas
+                   WHERE id = ?
+""",(id_prenda))
+
+    conexion.commit()
+    conexion.close()
+# ______________________________________________________
+
+# funciones llamando otras Funciones relacionado con opciones ll
 # ______________________________________________________
 
 def registrar_prenda_f2(): # opcion 1
@@ -108,7 +135,6 @@ Stock: {prenda["stock"]}
 ---------------
 """
         )
-
 # ______________________________________________________
 
 def buscar_prenda_f2():
@@ -125,8 +151,64 @@ Precio: S/. {prenda["precio"]}
 Stock: {prenda["stock"]}
 ---------------
 """)
-
 # ______________________________________________________
+
+def vender_prenda_f2():
+    id_prenda = int(input("ingrese el id de la prenda"))
+    prenda = buscar_prenda_f1(id_prenda)
+
+    if prenda is None:
+        print("La prenda no existe")
+        return
+
+    cantidad = int(input("cantidad a vender: "))
+
+    if cantidad > prenda["stock"]:
+        print("Stock insuficiente.")
+        return
+
+    nuevo_stock = prenda["stock"] - cantidad
+    actualizar_stock_f1(id_prenda,nuevo_stock)
+
+    print("\nVenta realizada.")
+# ______________________________________________________
+def reponer_prenda_f2():
+    id_prenda = int(input("Ingrese el id de la prenda")) # Pedir ID
+    prenda = buscar_prenda_f1(id_prenda)# Buscar prenda
+
+    if prenda is None: # ¿Existe?
+        print("La prenda no existe.")
+        return
+    cantidad = int(input("Cantidad a reponer: ")) # Pedir cantidad
+    nuevo_stock = prenda["stock"] + cantidad # Calcular nuevo stock
+
+    actualizar_stock_f1(id_prenda,nuevo_stock) # Actualizar BD
+
+    print("\nStock actualizado correctamente") # Mostrar mensaje
+# ______________________________________________________
+def eliminar_prenda_f2():
+    id_prenda = int(input("Ingrese id de la prenda: "))
+    prenda = buscar_prenda_f1(id_prenda)
+    if prenda is None:
+        print("La prenda no existe.")
+        return
+
+    print(f"""
+ID: {prenda["id"]}
+Nombre: {prenda["nombre"]}
+Precio: S/. {prenda["precio"]}
+Stock: {prenda["stock"]}
+---------------
+""")
+    confirmar = input("Esta seguro de eliminar esta prenda? s/n: ")
+    if confirmar.lower() == "s":
+        eliminar_prenda_f1(id_prenda)
+        print("\nPrenda eliminada correctamente")
+
+    else:
+        print("operacion cancelada")
+# ______________________________________________________
+
 
 def menu():
     while True:
@@ -149,15 +231,20 @@ def menu():
             mostrar_catalogo_f2()
         elif opcion == "3":
             buscar_prenda_f2()
+        elif opcion == "4":
+            vender_prenda_f2()
+        elif opcion == "5":
+            reponer_prenda_f2()
+        elif opcion == "6":
+            eliminar_prenda_f2()
         # elif opcion == "2":
-        # elif opcion == "2":
-
 
         elif opcion == "8":
             print("APP Closed ")
             break
         else:
             print("Opcion no valida.")
+# ______________________________________________________
 
 if __name__ == "__main__":
     crear_tablas_f1()
