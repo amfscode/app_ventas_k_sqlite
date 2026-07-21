@@ -105,6 +105,34 @@ def eliminar_prenda_f1(id_prenda):
     conexion.close()
 # ______________________________________________________
 
+def agregar_reserva_f1(cliente, id_prenda):
+    conexion = conectar_f_main1()
+    cursor = conexion.cursor()
+    cursor.execute("""
+INSERT INTO reservas(cliente, prenda_id)
+VALUES(?, ?)
+""",(cliente, id_prenda))
+
+    conexion.commit()
+    conexion.close()
+
+# ______________________________________________________
+
+def ver_reservas_f1():
+    conexion = conectar_f_main1()
+    cursor = conexion.cursor()
+    cursor.execute("""
+                   SELECT
+                    reservas.id,
+                    prendas.nombre
+                   FROM reservas
+                   INNER JOIN prendas
+                    ON reservas.prendas_id = prendas_id
+""")
+    reservas = cursor.fetchall()
+    conexion.close()
+    return reservas
+# ______________________________________________________
 # funciones llamando otras Funciones relacionado con opciones ll
 # ______________________________________________________
 
@@ -209,6 +237,32 @@ Stock: {prenda["stock"]}
         print("operacion cancelada")
 # ______________________________________________________
 
+def reservar_prenda_f2():
+    cliente  = input("Nombre del cliente: ") # id cliente
+    id_prenda = int(input("ID de la prenda: ")) # id de prenda
+    prenda = buscar_prenda_f1(id_prenda)# buscamos prenda
+
+    if prenda is None:  # existe?
+        print("La prenda no existe.")
+        return
+    agregar_reserva_f1(cliente,id_prenda) # guardar reserva
+    print("Reserva registrada correcatamente.") # confirma reserva
+# ______________________________________________________
+
+def mostrar_reservas_f2():
+    reservas = ver_reservas_f1()
+
+    if not reservas:
+        print("No hay reservas registradas. ")
+        return
+    for reserva in reservas:
+        print(f"""
+ID Reserva : {reserva["id"]}
+Cliente : {reserva["cliente"]}
+Prenda : {reserva["nombre"]}
+------------------
+""")
+# ______________________________________________________
 
 def menu():
     while True:
@@ -219,9 +273,9 @@ def menu():
         print("4. vender prenda")
         print("5. reponer prenda")
         print("6. eliminar prenda")
-        print("7. ver reservas")
-        print("8. Salir")
-        print("=======================")
+        print("7. reservar prenda")
+        print("8. ver reservas")
+        print("9. Salir\n")
 
         opcion =  input("Ingrese unaa opcion: ")
 
@@ -237,9 +291,12 @@ def menu():
             reponer_prenda_f2()
         elif opcion == "6":
             eliminar_prenda_f2()
-        # elif opcion == "2":
-
+        elif opcion == "7":
+            reservar_prenda_f2()
         elif opcion == "8":
+            mostrar_reservas_f2()
+
+        elif opcion == "9":
             print("APP Closed ")
             break
         else:
@@ -249,4 +306,3 @@ def menu():
 if __name__ == "__main__":
     crear_tablas_f1()
     menu()
-
