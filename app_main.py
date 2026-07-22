@@ -138,11 +138,15 @@ def ver_reservas_f1():
 # ______________________________________________________
 
 def registrar_prenda_f2(): # opcion 1
-    nombre = input("Nombre de la prenda: ")
-    precio = float(input("Precio: "))
-    stock = int(input("Stock: "))
-    agregar_prenda_f1(nombre,precio,stock)
-    print("\nPrenda registrad ")
+    try:
+        nombre = input("Nombre de la prenda: ")
+        precio = float(input("Precio: "))
+        stock = int(input("Stock: "))
+        agregar_prenda_f1(nombre,precio,stock)
+        print("\nPrenda registrad ")
+
+    except ValueError:
+        print("precio o stock invalido")
 # ______________________________________________________
 
 def mostrar_catalogo_f2(): # opcion 2
