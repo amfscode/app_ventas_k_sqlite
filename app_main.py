@@ -122,12 +122,13 @@ def ver_reservas_f1():
     conexion = conectar_f_main1()
     cursor = conexion.cursor()
     cursor.execute("""
-                   SELECT
-                    reservas.id,
-                    prendas.nombre
-                   FROM reservas
-                   INNER JOIN prendas
-                    ON reservas.prendas_id = prendas_id
+    SELECT
+        reservas.id,
+        reservas.cliente,
+        prendas.nombre
+    FROM reservas
+    INNER JOIN prendas
+        ON reservas.prenda_id = prendas.id
 """)
     reservas = cursor.fetchall()
     conexion.close()
