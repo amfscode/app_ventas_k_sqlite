@@ -142,11 +142,19 @@ def registrar_prenda_f2(): # opcion 1
         nombre = input("Nombre de la prenda: ")
         precio = float(input("Precio: "))
         stock = int(input("Stock: "))
-        agregar_prenda_f1(nombre,precio,stock)
-        print("\nPrenda registrad ")
-
     except ValueError:
-        print("precio o stock invalido")
+        print("El precio o stock invalido")
+        return
+
+    if precio < 0:
+        print("El Precio no pueder ser negativo.")
+        return
+    if stock < 0:
+        print("El Stock no puede ser negativo.")
+        return
+
+    agregar_prenda_f1(nombre,precio,stock)
+    print("\nPrenda registrada! ")
 # ______________________________________________________
 
 def mostrar_catalogo_f2(): # opcion 2
