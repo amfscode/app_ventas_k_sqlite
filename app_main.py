@@ -195,15 +195,21 @@ Stock: {prenda["stock"]}
 # ______________________________________________________
 
 def vender_prenda_f2():
-    id_prenda = int(input("ingrese el id de la prenda"))
+    try:
+        id_prenda = int(input("ingrese el id de la prenda"))
+        cantidad = int(input("cantidad a vender: "))
+    except ValueError:
+        print("El ID y la cantidad deben ser números enteros.")
+        return
+
     prenda = buscar_prenda_f1(id_prenda)
 
     if prenda is None:
         print("La prenda no existe")
         return
-
-    cantidad = int(input("cantidad a vender: "))
-
+    if cantidad <= 0:
+        print("La cantidad debe ser mayor a cero.")
+        return
     if cantidad > prenda["stock"]:
         print("Stock insuficiente.")
         return
