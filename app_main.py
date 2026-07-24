@@ -1,4 +1,5 @@
 
+from multiprocessing import Value
 import sqlite3
 
 # def conectar_f_main1(): # funcion version v.1
@@ -220,13 +221,20 @@ def vender_prenda_f2():
     print("\nVenta realizada.")
 # ______________________________________________________
 def reponer_prenda_f2():
-    id_prenda = int(input("Ingrese el id de la prenda")) # Pedir ID
+    try:
+        id_prenda = int(input("Ingrese el id de la prenda")) # Pedir ID
+        cantidad = int(input("Cantidad a reponer: ")) # Pedir cantidad
+    except ValueError:
+        print("El ID y la cantidad deben ser numeros entteros")
+        return
     prenda = buscar_prenda_f1(id_prenda)# Buscar prenda
 
     if prenda is None: # ¿Existe?
         print("La prenda no existe.")
         return
-    cantidad = int(input("Cantidad a reponer: ")) # Pedir cantidad
+    if cantidad <= 0:
+        print("La cantidad debe ser mayor que cero.")
+        return
     nuevo_stock = prenda["stock"] + cantidad # Calcular nuevo stock
 
     actualizar_stock_f1(id_prenda,nuevo_stock) # Actualizar BD
