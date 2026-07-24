@@ -1,4 +1,5 @@
 
+from encodings.punycode import T
 from multiprocessing import Value
 import sqlite3
 
@@ -9,6 +10,16 @@ def conectar_f_main1(): #funcion version v.2
     conexion = sqlite3.connect("ventas.db")
     conexion.row_factory = sqlite3.Row
     return conexion
+
+# funciones de refactorizacion
+# ___________________________
+def leer_entero(mensaje):
+    while True:
+        try:
+            return int(input(mensaje))
+        except ValueError:
+            print("Escriba solo numeros enteros")
+# ___________________________
 
 def crear_tablas_f1():
     conexion = conectar_f_main1()
