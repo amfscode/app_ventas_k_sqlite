@@ -1,6 +1,4 @@
-
-from encodings.punycode import T
-from multiprocessing import Value
+#
 import sqlite3
 
 # def conectar_f_main1(): # funcion version v.1
@@ -150,13 +148,9 @@ def ver_reservas_f1():
 # ______________________________________________________
 
 def registrar_prenda_f2(): # opcion 1
-    try:
-        nombre = input("Nombre de la prenda: ")
-        precio = float(input("Precio: "))
-        stock = int(input("Stock: "))
-    except ValueError:
-        print("El precio o stock invalido")
-        return
+    nombre = input("Nombre de la prenda: ")
+    precio = float(input("Precio: "))
+    stock = leer_entero("Stock: ")
 
     if precio < 0:
         print("El Precio no pueder ser negativo.")
@@ -191,8 +185,9 @@ Stock: {prenda["stock"]}
 # ______________________________________________________
 
 def buscar_prenda_f2():
-    id_prenda = int(input("Ingrese el ID de la prenda: "))
+    id_prenda = leer_entero("Ingrese el ID de la prenda: ")
     prenda = buscar_prenda_f1(id_prenda)
+
     if prenda is None:
         print("\nNo existe una  prenda con este ID.")
         return
@@ -247,7 +242,7 @@ def reponer_stock_f2():
     print("\nStock actualizado correctamente") # Mostrar mensaje
 # ______________________________________________________
 def eliminar_prenda_f2():
-    id_prenda = int(input("Ingrese id de la prenda: "))
+    id_prenda = leer_entero("Ingrese id de la prenda: ")
     prenda = buscar_prenda_f1(id_prenda)
     if prenda is None:
         print("La prenda no existe.")
@@ -271,7 +266,7 @@ Stock: {prenda["stock"]}
 
 def reservar_prenda_f2():
     cliente  = input("Nombre del cliente: ") # id cliente
-    id_prenda = int(input("ID de la prenda: ")) # id de prenda
+    id_prenda = leer_entero("ID de la prenda: ") # id de prenda
     prenda = buscar_prenda_f1(id_prenda)# buscamos prenda
 
     if prenda is None:  # existe?
