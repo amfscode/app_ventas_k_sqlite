@@ -207,12 +207,9 @@ Stock: {prenda["stock"]}
 # ______________________________________________________
 
 def vender_prenda_f2():
-    try:
-        id_prenda = int(input("ingrese el id de la prenda"))
-        cantidad = int(input("cantidad a vender: "))
-    except ValueError:
-        print("El ID y la cantidad deben ser números enteros.")
-        return
+
+    id_prenda = leer_entero("ingrese el id de la prenda")
+    cantidad = leer_entero("cantidad a vender: ")
 
     prenda = buscar_prenda_f1(id_prenda)
 
@@ -236,7 +233,7 @@ def reponer_prenda_f2():
         id_prenda = int(input("Ingrese el id de la prenda")) # Pedir ID
         cantidad = int(input("Cantidad a reponer: ")) # Pedir cantidad
     except ValueError:
-        print("El ID y la cantidad deben ser numeros entteros")
+        print("El ID y la cantidad deben ser numeros enteros")
         return
     prenda = buscar_prenda_f1(id_prenda)# Buscar prenda
 
