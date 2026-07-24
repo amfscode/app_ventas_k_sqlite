@@ -228,13 +228,10 @@ def vender_prenda_f2():
 
     print("\nVenta realizada.")
 # ______________________________________________________
-def reponer_prenda_f2():
-    try:
-        id_prenda = int(input("Ingrese el id de la prenda")) # Pedir ID
-        cantidad = int(input("Cantidad a reponer: ")) # Pedir cantidad
-    except ValueError:
-        print("El ID y la cantidad deben ser numeros enteros")
-        return
+def reponer_stock_f2():
+    id_prenda = leer_entero("Ingrese el id de la prenda") # Pedir ID
+    cantidad = leer_entero("Cantidad a reponer: ") # Pedir cantidad
+
     prenda = buscar_prenda_f1(id_prenda)# Buscar prenda
 
     if prenda is None: # ¿Existe?
@@ -323,7 +320,7 @@ def menu():
         elif opcion == "4":
             vender_prenda_f2()
         elif opcion == "5":
-            reponer_prenda_f2()
+            reponer_stock_f2()
         elif opcion == "6":
             eliminar_prenda_f2()
         elif opcion == "7":
