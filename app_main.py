@@ -156,7 +156,7 @@ def ver_reservas_f1():
 
 def registrar_prenda_f2(): # opcion 1
     nombre = input("Nombre de la prenda: ")
-    precio = float(input("Precio: "))
+    precio = leer_decimal("Precio: ")
     stock = leer_entero("Stock: ")
 
     if precio < 0:
