@@ -18,6 +18,13 @@ def leer_entero(mensaje):
         except ValueError:
             print("Escriba solo numeros enteros")
 # ___________________________
+def leer_decimal(mensaje):
+    while True:
+        try:
+            return float(input(mensaje))
+        except ValueError:
+            print("Escriba un número válido")
+# ___________________________
 
 def crear_tablas_f1():
     conexion = conectar_f_main1()
