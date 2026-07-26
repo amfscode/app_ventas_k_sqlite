@@ -25,6 +25,16 @@ def leer_decimal(mensaje):
         except ValueError:
             print("Escriba un número válido")
 # ___________________________
+def read_confirmation(message):
+    print("Respuesta inválida\nEscriba 's' o 'n'.")
+    while True:
+        answer = input(message).lower()
+
+        if answer in ["si", "s"]:
+            return True
+        if answer in ["no", "n"]:
+            return False
+___________________________
 
 def crear_tablas_f1():
     conexion = conectar_f_main1()
