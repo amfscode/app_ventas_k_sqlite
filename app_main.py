@@ -34,7 +34,7 @@ def read_confirmation(message):
             return True
         if answer in ["no", "n"]:
             return False
-___________________________
+# ___________________________
 
 def crear_tablas_f1():
     conexion = conectar_f_main1()
