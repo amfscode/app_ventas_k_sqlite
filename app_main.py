@@ -26,7 +26,7 @@ def leer_decimal(mensaje):
             print("Escriba un número válido")
 # ___________________________
 def read_confirmation(message):
-    print("Respuestas válidas\nEscriba 's' o 'n'.")
+
     while True:
         answer = input(message).lower()
 
@@ -34,6 +34,7 @@ def read_confirmation(message):
             return True
         if answer in ["no", "n"]:
             return False
+        print("Respuestas válidas\nEscriba 's' o 'n'.")
 # ___________________________
 
 def crear_tablas_f1():
@@ -272,13 +273,14 @@ Precio: S/. {prenda["precio"]}
 Stock: {prenda["stock"]}
 ---------------
 """)
-    confirmar = input("Esta seguro de eliminar esta prenda? s/n: ")
-    if confirmar.lower() == "s":
+    confirmar = read_confirmation("Esta seguro de eliminar esta prenda? s/n:")
+    if confirmar:
         eliminar_prenda_f1(id_prenda)
         print("\nPrenda eliminada correctamente")
 
     else:
         print("operacion cancelada")
+
 # ______________________________________________________
 
 def reservar_prenda_f2():
