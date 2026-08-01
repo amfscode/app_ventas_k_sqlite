@@ -26,7 +26,7 @@ def leer_decimal(mensaje):
             print("Escriba un número válido")
 # ___________________________
 def read_confirmation(message):
-    print("Respuesta inválida\nEscriba 's' o 'n'.")
+    print("Respuestas válidas\nEscriba 's' o 'n'.")
     while True:
         answer = input(message).lower()
 
