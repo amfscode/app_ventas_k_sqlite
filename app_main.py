@@ -322,8 +322,9 @@ def menu():
         print("7. reservar prenda")
         print("8. ver reservas")
         print("9. Salir\n")
+        print("10.Edita prenda")
 
-        opcion =  input("Ingrese unaa opcion: ")
+        opcion =  input("Ingrese una opcion: ")
 
         if opcion == "1":
             registrar_prenda_f2()
@@ -345,6 +346,10 @@ def menu():
         elif opcion == "9":
             print("APP Closed ")
             break
+        elif opcion == "10":
+            pass
+            # mostrar_reservas_f2()
+
         else:
             print("Opcion no valida.")
 # ______________________________________________________
