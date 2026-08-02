@@ -175,6 +175,18 @@ def actualizar_nombre_f1(id_prenda,nuevo_nombre):
     conexion.close()
 
 # ______________________________________________________
+def actualizar_nombre_f1(id_prenda,nuevo_precio):
+    conexion = conectar_f_main1()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+                   UPDATE prendas
+                   SET precio = ?
+                   WHERE id = ?
+                   """,(nuevo_precio,id_prenda))
+    conexion.commit()
+    conexion.close()
+# ______________________________________________________
 # funciones llamando otras Funciones relacionado con opciones ll
 # ______________________________________________________
 
@@ -346,8 +358,10 @@ Stock: {prenda["stock"]}
     option = input("Seleccione una opción: ")
     if option == "1":
         new_name = input("Nuevo nombre")
+        actualizar_nombre_f1(id_prenda,new_name)
+        print("Nombre actualizado correctamente.")
     elif option == 2:pass
-    else:pass
+    else:print("numero invalido")
 
 
 
