@@ -162,6 +162,17 @@ def ver_reservas_f1():
     conexion.close()
     return reservas
 # ______________________________________________________
+def actualizar_nombre_f1(id_prenda,nuevo_nombre):
+    conexion = conectar_f_main1()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+                   UPDATE prendas
+                   SET nombre = ?
+                   WHERE id = ?
+                   """,(nuevo_nombre,id_prenda))
+    conexion.commit()
+    conexion.close()
 
 # ______________________________________________________
 # funciones llamando otras Funciones relacionado con opciones ll
