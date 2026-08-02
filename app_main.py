@@ -175,7 +175,7 @@ def actualizar_nombre_f1(id_prenda,nuevo_nombre):
     conexion.close()
 
 # ______________________________________________________
-def actualizar_nombre_f1(id_prenda,nuevo_precio):
+def actualizar_precio_f1(id_prenda,nuevo_precio):
     conexion = conectar_f_main1()
     cursor = conexion.cursor()
 
@@ -355,12 +355,31 @@ Stock: {prenda["stock"]}
 2. Precio
 3. Stock
 4. Cancelar""")
+
     option = input("Seleccione una opción: ")
     if option == "1":
-        new_name = input("Nuevo nombre")
+        new_name = input("Si desea cancelar escriba, salir.\nNuevo nombre:")
+        if new_name == "salir":
+            print("operacion cancelada.")
+            return
         actualizar_nombre_f1(id_prenda,new_name)
         print("Nombre actualizado correctamente.")
-    elif option == 2:pass
+    elif option == "2":
+        new_precio = leer_decimal("Si desea cancelar escriba, salir.\nNuevo precio:")
+        if new_precio == "salir":
+            print("operacion cancelada.")
+            return
+        actualizar_precio_f1(id_prenda,new_precio)
+        print("Precio actualizado correctamente.")
+    elif option == "3":
+        new_stock = input("Si desea cancelar escriba, salir.\nNuevo stock: ")
+        if new_stock == "salir":
+            print("operacion cancelada.")
+            return
+        actualizar_stock_f1(id_prenda,new_stock)
+        print("Stock actualizado correctamente.")
+    elif option == "4":
+        return
     else:print("numero invalido")
 
 
@@ -404,7 +423,7 @@ def menu():
             print("APP Closed ")
             break
         elif opcion == "10":
-            edit_garment_f2()
+            editar_prenda_f2()
 
         else:
             print("Opcion no valida.")
