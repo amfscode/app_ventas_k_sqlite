@@ -1,6 +1,7 @@
 #
 
 import sqlite3
+from sys import implementation
 
 # def conectar_f_main1(): # funcion version v.1
 #     return sqlite3.connect("ventas.db")
@@ -365,10 +366,14 @@ Stock: {prenda["stock"]}
         actualizar_nombre_f1(id_prenda,new_name)
         print("Nombre actualizado correctamente.")
     elif option == "2":
-        new_precio = leer_decimal("Si desea cancelar escriba, salir.\nNuevo precio:")
-        if new_precio == "salir":
+        n = input("Si desea cancelar escriba, salir.\nNuevo precio:")
+        if n == "salir":
             print("operacion cancelada.")
             return
+        try:
+            new_precio = float(n)
+        except ValueError:
+            print("Ingrese un número válido")
         actualizar_precio_f1(id_prenda,new_precio)
         print("Precio actualizado correctamente.")
     elif option == "3":
