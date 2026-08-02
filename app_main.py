@@ -1,4 +1,5 @@
 #
+
 import sqlite3
 
 # def conectar_f_main1(): # funcion version v.1
@@ -143,7 +144,6 @@ VALUES(?, ?)
 
     conexion.commit()
     conexion.close()
-
 # ______________________________________________________
 
 def ver_reservas_f1():
@@ -161,6 +161,8 @@ def ver_reservas_f1():
     reservas = cursor.fetchall()
     conexion.close()
     return reservas
+# ______________________________________________________
+
 # ______________________________________________________
 # funciones llamando otras Funciones relacionado con opciones ll
 # ______________________________________________________
@@ -308,6 +310,36 @@ Cliente : {reserva["cliente"]}
 Prenda : {reserva["nombre"]}
 ------------------
 """)
+
+# ______________________________________________________
+def editar_prenda_f2():
+    id_prenda = leer_entero("Ingrese el ID de la prenda: ")
+    prenda = buscar_prenda_f1(id_prenda)
+    if prenda is None:
+        print("La prenda no existe.")
+        return
+    print(
+        f"""
+ID: {prenda["id"]}
+Nombre: {prenda["nombre"]}
+Precio: S/. {prenda["precio"]}
+Stock: {prenda["stock"]}
+---------------
+""")
+    print("""¿Qué desea editar?
+
+1. Nombre
+2. Precio
+3. Stock
+4. Cancelar""")
+    option = input("Seleccione una opción: ")
+    if option == "1":
+        new_name = input("Nuevo nombre")
+    elif option == 2:pass
+    else:pass
+
+
+
 # ______________________________________________________
 
 def menu():
@@ -347,8 +379,7 @@ def menu():
             print("APP Closed ")
             break
         elif opcion == "10":
-            pass
-            # mostrar_reservas_f2()
+            edit_garment_f2()
 
         else:
             print("Opcion no valida.")
