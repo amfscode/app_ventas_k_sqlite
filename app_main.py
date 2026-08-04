@@ -59,6 +59,16 @@ CREATE TABLE IF NOT EXISTS reservas (
                    FOREIGN KEY (prenda_id) REFERENCES prendas(id)
                    )
                    """)
+    cursor.execute("""
+CREATE TABLE IF NOT EXISTS ventas (
+                   id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   cliente TEXT NOT NULL,
+                   prenda_id INTEGER  NOT NULL,
+                   cantidad INTEGER  NOT NULL,
+                   fecha TEXT NOT NULL,
+                   FOREIGN KEY (prenda_id) REFERENCES prendas(id)
+                   )
+                   """)
 
     conexion.commit()
     conexion.close()
@@ -376,6 +386,7 @@ Stock: {prenda["stock"]}
             print("Ingrese un número válido")
         actualizar_precio_f1(id_prenda,new_precio)
         print("Precio actualizado correctamente.")
+
     elif option == "3":
         new_stock = input("Si desea cancelar escriba, salir.\nNuevo stock: ")
         if new_stock == "salir":
@@ -387,7 +398,7 @@ Stock: {prenda["stock"]}
         return
     else:print("numero invalido")
 
-
+# ______________________________________________________
 
 # ______________________________________________________
 
