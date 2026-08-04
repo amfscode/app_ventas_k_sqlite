@@ -129,6 +129,17 @@ def actualizar_stock_f1(id_prenda,nuevo_stock):
                    """,(nuevo_stock,id_prenda))
     conexion.commit()
     conexion.close()
+# registrado quién compró, cuánto compró ni cuándo.
+def agregar_venta_f1(cliente, id_prenda, cantidad, fecha):
+    conexion = conectar_f_main1()
+    cursor= conexion.cursor()
+    cursor.execute("""
+    INSERT INTO ventas(cliente, id_prenda, cantidad, fecha)
+    VALUES(?, ?, ?, ?)
+    """,(cliente, id_prenda, cantidad, fecha))
+
+    conexion.commit()
+    conexion.close()
 
 # ______________________________________________________
 
