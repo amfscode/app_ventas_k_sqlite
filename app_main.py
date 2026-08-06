@@ -1,7 +1,7 @@
 #
 
 import sqlite3
-from sys import implementation
+from datetime import date
 
 # def conectar_f_main1(): # funcion version v.1
 #     return sqlite3.connect("ventas.db")
@@ -72,7 +72,6 @@ CREATE TABLE IF NOT EXISTS ventas (
 
     conexion.commit()
     conexion.close()
-
 
 # ______________________________________________________
 
@@ -269,6 +268,7 @@ Stock: {prenda["stock"]}
 def vender_prenda_f2():
 
     id_prenda = leer_entero("ingrese el id de la prenda")
+    cliente = input("Nombre del cliente")
     cantidad = leer_entero("cantidad a vender: ")
 
     prenda = buscar_prenda_f1(id_prenda)
@@ -285,6 +285,8 @@ def vender_prenda_f2():
 
     nuevo_stock = prenda["stock"] - cantidad
     actualizar_stock_f1(id_prenda,nuevo_stock)
+    fecha = date.today()
+    agregar_venta_f1(cliente,id_prenda, cantidad,fecha)
 
     print("\nVenta realizada.")
 # ______________________________________________________
