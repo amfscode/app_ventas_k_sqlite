@@ -141,6 +141,24 @@ def agregar_venta_f1(cliente, id_prenda, cantidad, fecha):
     conexion.close()
 
 # ______________________________________________________
+def ver_ventas_f1():
+    conexion = conectar_f_main1()
+    cursor = conexion.cursor()
+    cursor.execute("""
+    SELECT
+        ventas.id,
+        ventas.cliente,
+        prendas.nombre,
+        ventas.cantidad,
+        ventas.fecha
+    FROM ventas
+    INNER JOIN prendas
+        ON ventas.prenda_id = prendas.id
+""")
+    ventas = cursor.fetchall()
+    conexion.close()
+    return ventas
+# ______________________________________________________
 
 def eliminar_prenda_f1(id_prenda):
     conexion = conectar_f_main1()
