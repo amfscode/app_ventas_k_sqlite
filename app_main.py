@@ -133,7 +133,7 @@ def agregar_venta_f1(cliente, id_prenda, cantidad, fecha):
     conexion = conectar_f_main1()
     cursor = conexion.cursor()
     cursor.execute("""
-    INSERT INTO ventas(cliente, id_prenda, cantidad, fecha)
+    INSERT INTO ventas(cliente, prenda_id, cantidad, fecha)
     VALUES(?, ?, ?, ?)
     """,(cliente, id_prenda, cantidad, fecha))
 
@@ -285,8 +285,8 @@ Stock: {prenda["stock"]}
 
 def vender_prenda_f2():
 
-    id_prenda = leer_entero("ingrese el id de la prenda")
-    cliente = input("Nombre del cliente")
+    id_prenda = leer_entero("ingrese el id de la prenda: ")
+    cliente = input("Nombre del cliente: ")
     cantidad = leer_entero("cantidad a vender: ")
 
     prenda = buscar_prenda_f1(id_prenda)
@@ -488,6 +488,20 @@ def menu():
         else:
             print("Opcion no valida.")
 # ______________________________________________________
+# def ver_estructura_ventas():
+#     conexion = conectar_f_main1()
+#     cursor = conexion.cursor()
+
+#     cursor.execute("PRAGMA table_info(ventas)")
+
+#     for columna in cursor.fetchall():
+#         print(dict(columna))
+
+#     conexion.close()
+
+# import os
+
+# print(os.path.abspath("ventas.db"))
 
 if __name__ == "__main__":
     crear_tablas_f1()
