@@ -131,7 +131,7 @@ def actualizar_stock_f1(id_prenda,nuevo_stock):
 # registrado quién compró, cuánto compró ni cuándo.
 def agregar_venta_f1(cliente, id_prenda, cantidad, fecha):
     conexion = conectar_f_main1()
-    cursor= conexion.cursor()
+    cursor = conexion.cursor()
     cursor.execute("""
     INSERT INTO ventas(cliente, id_prenda, cantidad, fecha)
     VALUES(?, ?, ?, ?)
@@ -430,6 +430,16 @@ Stock: {prenda["stock"]}
     else:print("numero invalido")
 
 # ______________________________________________________
+def mostrar_ventas_f2():
+    ventas = ver_ventas_f1()
+    # print(ventas)
+    for venta in ventas:
+        print(f"ID Venta: {venta["id"]}")
+        print(f"Cliente: {venta["cliente"]}")
+        print(f"Prenda: {venta["nombre"]}")
+        print(f"Cantidad: {venta["cantidad"]}")
+        print(f"Fecha: {venta["fecha"]}")
+
 
 # ______________________________________________________
 
@@ -446,6 +456,7 @@ def menu():
         print("8. ver reservas")
         print("9. Salir\n")
         print("10.Edita prenda")
+        print("11.ver ventas")
 
         opcion =  input("Ingrese una opcion: ")
 
@@ -471,6 +482,8 @@ def menu():
             break
         elif opcion == "10":
             editar_prenda_f2()
+        elif opcion == "11":
+            mostrar_ventas_f2()
 
         else:
             print("Opcion no valida.")
